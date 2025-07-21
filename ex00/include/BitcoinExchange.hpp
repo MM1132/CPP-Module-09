@@ -9,7 +9,7 @@
 struct Quote
 {
 	Date date;
-	float value;
+	float price;
 };
 
 class BitcoinExchange
@@ -22,4 +22,6 @@ class BitcoinExchange
 		BitcoinExchange(std::string filename);
 
 		void printQuotes() const;
+		void simulateAccount(std::string accountFilename) const;
+		float getClosestPrice(Date date);
 };

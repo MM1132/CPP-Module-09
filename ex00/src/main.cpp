@@ -17,6 +17,7 @@ int main(int ac, char** av)
 		(void)av[1];
 
 		bitcoinExchange.printQuotes();
+		// bitcoinExchange.simulateAccount(av[1]);
 	}
 	catch (const std::exception& e)
 	{

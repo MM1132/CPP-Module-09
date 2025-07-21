@@ -12,6 +12,11 @@ BitcoinExchange::BitcoinExchange(std::string databaseFilename):
 	m_databaseFilename(databaseFilename)
 {
 	std::ifstream inputFile(m_databaseFilename);
+	if (!inputFile.is_open())
+	{
+		std::cout << "Failed to open the database file" << std::endl;
+		return ;
+	}
 
 	std::regex dataLineRegex("([0-9]{4})-([0-9]{2})-([0-9]{2}),(\\d+.?\\d*)");
 
@@ -50,6 +55,29 @@ void BitcoinExchange::printQuotes() const
 	{
 		std::cout << "On date ";
 		quote.date.print();
-		std::cout << " the price was " << quote.value << std::endl;
+		std::cout << " the price was " << quote.price << std::endl;
 	}
+}
+
+void BitcoinExchange::simulateAccount(std::string accountFilename) const
+{
+	std::ifstream accountFile(accountFilename);
+	if (!accountFile.is_open())
+	{
+		std::cout << "Failed to open account file, simulation will not fun" << std::endl;
+		return ;
+	}
+
+	std::regex accountLineRegex("([0-9]{4})-([0-9]{2})-([0-9]{2}) | (\\d+.?\\d*)");
+	std::string line;
+	while (getline(accountFile, line))
+	{
+
+	}
+	accountFile.close();
+};
+
+float BitcoinExchange::getClosestPrice(Date date)
+{
+	
 }

@@ -35,7 +35,16 @@ inline bool isDateValid(int year, int month, int day)
 
 inline void printDate(int year, int month, int day)
 {
-	std::cout << year << "-" << month << "-" << day << std::flush;
+	std::cout << year;
+	std::cout << "-";
+	if (month < 10)
+		std::cout << "0";
+	std::cout << month;
+	std::cout << "-";
+	if (day < 10)
+		std::cout << "0";
+	std::cout << day;
+	std::cout << std::flush;
 }
 
 struct InvalidDateException : public std::exception
