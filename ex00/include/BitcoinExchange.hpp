@@ -1,27 +1,24 @@
 #pragma once
 
-#include "utils.hpp"
+#include "Date.hpp"
 
 #include <vector>
 #include <string>
 #include <ctime>
-
-struct Quote
-{
-	Date date;
-	float price;
-};
+#include <map>
 
 class BitcoinExchange
 {
 	private:
-		std::string m_databaseFilename;
-		std::vector<Quote> m_quotes;
-		
+		std::map<Date, float> m_quotes;
+
 	public:
 		BitcoinExchange(std::string filename);
+		BitcoinExchange(const BitcoinExchange& other);
+		BitcoinExchange& operator=(const BitcoinExchange& other);
+		~BitcoinExchange() = default;
 
 		void printQuotes() const;
 		void simulateAccount(std::string accountFilename) const;
-		float getClosestPrice(Date date);
+		float getClosestPrice(Date date) const;
 };

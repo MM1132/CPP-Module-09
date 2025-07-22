@@ -8,7 +8,8 @@ IFLAGS := -Iinclude
 NAME := btc
 SRC_FILES := \
 	$(SRC_DIR)/main.cpp \
-	$(SRC_DIR)/BitcoinExchange.cpp
+	$(SRC_DIR)/BitcoinExchange.cpp \
+	$(SRC_DIR)/Date.cpp
 
 OBJ_FILES := $(SRC_FILES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
