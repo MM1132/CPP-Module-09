@@ -1,7 +1,7 @@
 SRC_DIR := src
 OBJ_DIR := obj
 CC := c++
-CFLAGS := -Wall -Wextra -Werror -Wshadow -std=c++17 -fsanitize=address
+CFLAGS := -Wall -Wextra -Werror -Wshadow -std=c++17
 IFLAGS := -Iinclude
 
 # Executable setup

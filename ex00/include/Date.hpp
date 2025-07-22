@@ -9,6 +9,9 @@ class Date
 	private:
 		int m_year, m_month, m_day;
 
+		// Static list of day counts in months
+		static const constexpr int m_daysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
 	public:
 		Date(int year, int month, int day);
 		Date(const Date& other);
@@ -30,4 +33,5 @@ class Date
 
 		void print() const;
 		bool isValid() const;
+		bool isLeapYear() const;
 };

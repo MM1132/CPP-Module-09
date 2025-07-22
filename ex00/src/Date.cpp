@@ -66,29 +66,19 @@ void Date::print() const
 
 bool Date::isValid() const
 {
-	struct tm date;
+	const int allowedDays = m_daysInMonth[m_month - 1] + (m_month == 2 && isLeapYear());
 
-	date.tm_year = m_year - 1900;
-	date.tm_mon = m_month - 1;
-	date.tm_mday = m_day;
-	date.tm_hour = 0;
-	date.tm_min = 0;
-	date.tm_sec = 0;
-	date.tm_isdst = 0;
-
-	time_t time = mktime(&date);
-
-	if (time == -1)
-	{
+	if (m_year < 1970 || m_year > 2100)
 		return false;
-	}
-		
-	if (
-		date.tm_year != m_year - 1900 ||
-		date.tm_mon != m_month - 1 ||
-		date.tm_mday != m_day
-	)
+	if (m_month < 1 || m_month > 12)
+		return false;
+	if (m_day < 1 || m_day > allowedDays)
 		return false;
 	
 	return true;
+}
+
+bool Date::isLeapYear() const
+{
+	return (m_year % 4 == 0 && (m_year % 100 != 0 || m_year % 400 == 0));
 }
