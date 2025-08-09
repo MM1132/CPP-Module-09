@@ -7,7 +7,7 @@ void printNumbers(CONTAINER& list)
 {
 	for (auto v : list)
 	{
-		std::cout << v << ", ";
+		std::cout << v << " ";
 	}
 	std::cout << std::endl;
 }
@@ -59,6 +59,20 @@ void binaryInsert(CONTAINER& sortedList, int number)
 	sortedList.insert(insertPosition, number);
 }
 
+int getJacobsNumber(int n)
+{
+	int previous = 1;
+	int current = 1;
+
+	for (int i = 0; i < n; i++)
+	{
+		int currentSave = current;
+		current = current + previous * 2;
+		previous = currentSave;
+	}
+	return current - 1;
+}
+
 template<typename CONTAINER>
 CONTAINER mergeInsertSort(CONTAINER list)
 {
@@ -94,23 +108,34 @@ CONTAINER mergeInsertSort(CONTAINER list)
 	if (size % 2)
 		smallerNumbers.push_back(list.back());
 
-	// std::cout << "smaller numbers: " << std::endl;
-	// printNumbers(smallerNumbers);
-	// std::cout << "bigger numbers: " << std::endl;
-	// printNumbers(biggerNumbers);
-	// return list;
+	// for (auto v : smallerNumbers)
+	// {
+	// 	binaryInsert<CONTAINER>(biggerNumbers, v);
+	// }
 
-	// Binary insert all the numbers into the first list
-	for (auto v : smallerNumbers)
+	int previousJacobs = 1;
+	int currentJacobs = 1;
+	for (unsigned long i = 0; currentJacobs < (int)smallerNumbers.size(); i++)
 	{
-		// std::cout << "Before inserting:" << std::endl;
-		// printNumbers(biggerNumbers);
-		binaryInsert<CONTAINER>(biggerNumbers, v);
-		// std::cout << "After inserting " << v << ":" << std::endl;
-		// printNumbers(biggerNumbers);
+		previousJacobs = currentJacobs;
+		currentJacobs = getJacobsNumber(i);
+
+		// std::cout << "Previous and current jacobs: " << previousJacobs << ", " << currentJacobs << std::endl;
+
+		// Binary insert numbers until we reach the previous jacobs number
+		int insertionIndex = currentJacobs;
+		do
+		{
+			if (insertionIndex < (int)smallerNumbers.size())
+			{
+				auto it = std::next(smallerNumbers.begin(), insertionIndex);
+				binaryInsert<CONTAINER>(biggerNumbers, *it);
+			}
+
+			insertionIndex--;
+		}
+		while (insertionIndex > previousJacobs);
 	}
 
 	return biggerNumbers;
-
-	// Check if the size of odd, and if it is, insert the last number too
 }
